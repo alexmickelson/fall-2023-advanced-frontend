@@ -3,12 +3,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Item } from "./Item";
 import { ListItem } from "./models/listItem";
+import { canvastoken } from "./secrets";
 
 const App = () => {
   const items = [
     {
       id: 1,
       name: "one",
+      token: canvastoken,
     },
     {
       id: 2,
@@ -27,6 +29,8 @@ const App = () => {
           <Item key={i.id} item={i} onClick={handleClick(i)} />
         ))}
       </header>
+
+      <img src="/dog.jpg" alt="dog" />
     </div>
   );
 };
