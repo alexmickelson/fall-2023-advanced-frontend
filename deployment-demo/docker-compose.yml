@@ -2,8 +2,28 @@ version: "3"
 services:
   client:
     build: .
-    ports:
-    - 80:80
+    # ports:
+    # - 80:80
     volumes:
       - ./public/dog.jpg:/usr/share/nginx/html/dog.jpg
-   
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=reactdemo.duckdns.org
+      # - SUBDOMAINS=www,
+      - VALIDATION=dns
+      - DNSPLUGIN=duckdns #optional
+      - DUCKDNSTOKEN=470a6341-7691-49ac-9cef-019d1c8bb571 #optional
+      - STAGING=true #optional
+    volumes:
+      - /home/alex/data/swag:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
