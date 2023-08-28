@@ -17,8 +17,8 @@ services:
       - TZ=America/Denver
       - URL=reactdemo.duckdns.org
       # - SUBDOMAINS=www,
-      - VALIDATION=dns
-      - DNSPLUGIN=duckdns #optional
+      - VALIDATION=duckdns
+      # - DNSPLUGIN=duckdns #optional
       - DUCKDNSTOKEN=470a6341-7691-49ac-9cef-019d1c8bb571 #optional
       - STAGING=true #optional
     volumes:
