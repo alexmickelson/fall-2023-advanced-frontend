@@ -3,7 +3,7 @@ services:
   client:
     build: .
     ports:
-    - 80:80
+    - 3011:80
     # volumes:
     #   - ./public/dog.jpg:/usr/share/nginx/html/dog.jpg
 
