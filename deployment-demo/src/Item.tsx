@@ -1,10 +1,13 @@
 import { FC } from "react";
-import { ListItem } from "./models/listItem";
+import { Book } from "./models/books";
 
 export const Item: FC<{
-  item: ListItem;
-  onClick: (i: number) => number;
+  item: Book;
+  onClick: (b: Book) => void;
 }> = ({ item, onClick }) => {
-  const i = onClick(item.id);
-  return <div onClick={() => onClick(item.id)}>{item.name}</div>;
+  return (
+    <button role="button" onClick={() => onClick(item)}>
+      {item.title}
+    </button>
+  );
 };

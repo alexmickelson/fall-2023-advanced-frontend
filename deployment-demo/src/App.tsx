@@ -1,36 +1,58 @@
-import React from "react";
-import logo from "./logo.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Item } from "./Item";
-import { ListItem } from "./models/listItem";
-import { canvastoken } from "./secrets";
+import { Book, generateRandomBooks } from "./models/books";
+import { Spinner } from "./Spinner";
+import { FilterInput } from "./FilterInput";
 
 const App = () => {
-  const items = [
-    {
-      id: 1,
-      name: "one",
-      token: canvastoken,
-    },
-    {
-      id: 2,
-      name: "two",
-    },
-  ];
-  const handleClick = (item: ListItem) => {
-    return (_i: number) => _i + item.id
-  };
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [userClickCount, setUserClickCount] = useState(1);
+  const [newFilterValue, setNewFilterValue] = useState("");
+  const [selectedBook, setSelectedBook] = useState<Book | undefined>();
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+
+  useEffect(() => {
+    setLoading(true);
+    generateRandomBooks(20_000)
+      .then((data) => setBooks(data))
+      .then(() => setLoading(false));
+  }, [userClickCount]);
+
+  useEffect(() => {
+    setFilteredBooks(
+      books.filter((b) =>
+        b.title.toLowerCase().includes(newFilterValue.toLowerCase())
+      )
+    );
+  }, [books, newFilterValue]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <button onClick={() => setUserClickCount((lastValue) => lastValue + 1)}>
+          Load books
+        </button>
 
-        {items.map((i) => (
-          <Item key={i.id} item={i} onClick={handleClick(i)} />
+        {loading && <Spinner />}
+
+        {selectedBook && (
+          <div>
+            <div>{selectedBook.author}</div>
+            <div>{selectedBook.title}</div>
+            <div>{selectedBook.ISBN}</div>
+          </div>
+        )}
+
+        <FilterInput
+          onChange={(newFilterValue) => setNewFilterValue(newFilterValue)}
+        />
+
+        {filteredBooks.map((i) => (
+          <Item onClick={(b) => setSelectedBook(b)} key={i.id} item={i} />
         ))}
       </header>
-
-      <img src="/dog.jpg" alt="dog" />
     </div>
   );
 };
