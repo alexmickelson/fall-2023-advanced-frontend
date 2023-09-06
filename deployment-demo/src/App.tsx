@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import { Item } from "./Item";
 import { Book, generateRandomBooks } from "./models/books";
 import { Spinner } from "./Spinner";
@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    generateRandomBooks(20_000)
+    generateRandomBooks(200)
       .then((data) => setBooks(data))
       .then(() => setLoading(false));
   }, [userClickCount]);
@@ -31,7 +31,10 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={() => setUserClickCount((lastValue) => lastValue + 1)}>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => setUserClickCount((lastValue) => lastValue + 1)}
+        >
           Load books
         </button>
 

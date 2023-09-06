@@ -6,7 +6,7 @@ export const Item: FC<{
   onClick: (b: Book) => void;
 }> = ({ item, onClick }) => {
   return (
-    <button role="button" onClick={() => onClick(item)}>
+    <button onClick={() => onClick(item)} className="btn btn-outline-primary">
       {item.title}
     </button>
   );
