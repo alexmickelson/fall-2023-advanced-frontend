@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { FilterInput } from "./FilterInput";
-import { Item } from "./BookItem";
+import { BookItem } from "./BookItem";
 import { Spinner } from "../../components/Spinner";
 import { Book, generateRandomBooks } from "../../models/books";
 import { BookDetails } from "./BookDetails";
+import { ListDetail } from "../../components/ListDetail";
 
 export const BookList = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -47,23 +48,11 @@ export const BookList = () => {
       </div>
       {loading && <Spinner />}
 
-      <div className="row">
-        <div className="col-4">
-          <ul className="list-group">
-            {filteredBooks.map((i) => (
-              <Item
-                onClick={(b) => setSelectedBook(b)}
-                key={i.id}
-                item={i}
-                isSelected={i.id === selectedBook?.id}
-              />
-            ))}
-          </ul>
-        </div>
-        <div className="col">
-          {selectedBook && <BookDetails book={selectedBook} />}
-        </div>
-      </div>
+      <ListDetail
+        items={filteredBooks}
+        ListComponent={BookItem}
+        ItemDetail={BookDetails}
+      />
     </div>
   );
 };

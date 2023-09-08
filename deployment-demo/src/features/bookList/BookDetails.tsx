@@ -1,20 +1,20 @@
 import React, { FC } from "react";
 import { Book } from "../../models/books";
 
-export const BookDetails: FC<{ book: Book }> = ({ book }) => {
+export const BookDetails: FC<{ item: Book }> = ({ item }) => {
   const BookDetail = {
-    Author: book.author,
-    ISBN: book.ISBN,
-    "Published Date": book.publishedDate.toString(),
-    Genre: book.genre,
-    "Page Count": book.pages,
-    Language: book.language,
-    Publisher: book.publisher
+    Author: item.author,
+    ISBN: item.ISBN,
+    "Published Date": item.publishedDate.toString(),
+    Genre: item.genre,
+    "Page Count": item.pages,
+    Language: item.language,
+    Publisher: item.publisher
   }
 
   return (
     <div className="border border-4 rounded-5 p-3 bg-dark-subtle">
-      <h1 className="text-center">{book.title}</h1>
+      <h1 className="text-center">{item.title}</h1>
       <hr />
       {Object.entries(BookDetail).map(([label, value]) =>
         <div className="fs-2">
