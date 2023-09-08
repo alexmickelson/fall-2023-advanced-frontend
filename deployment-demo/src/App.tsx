@@ -2,7 +2,7 @@ import { BookList } from "./features/bookList/BookList";
 
 const App = () => {
   return (
-    <div className="container">
+    <div className="container-md">
       <BookList></BookList>
     </div>
   );

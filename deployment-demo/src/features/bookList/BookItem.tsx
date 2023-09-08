@@ -4,10 +4,11 @@ import { Book } from "../../models/books";
 export const Item: FC<{
   item: Book;
   onClick: (b: Book) => void;
-}> = ({ item, onClick }) => {
+  isSelected: Boolean;
+}> = ({ item, onClick, isSelected }) => {
   return (
-    <button onClick={() => onClick(item)} className="btn btn-outline-primary">
+    <li role="button" onClick={() => onClick(item)} className={` list-group-item ${isSelected && " active "}`}>
       {item.title}
-    </button>
+    </li>
   );
 };

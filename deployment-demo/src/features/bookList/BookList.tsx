@@ -30,26 +30,35 @@ export const BookList = () => {
 
   return (
     <div>
-      <div className="">
-        <button
-          className="btn btn-outline-primary"
-          onClick={() => setUserClickCount((lastValue) => lastValue + 1)}
-        >
-          Load books
-        </button>
-
-        <FilterInput
-          onChange={(newFilterValue) => setNewFilterValue(newFilterValue)}
-        />
+      <div className="row align-items-center my-3 justify-content-between">
+        <div className="col-8 col-sm-5 col-md-4 col-lg-2">
+          <FilterInput
+            onChange={(newFilterValue) => setNewFilterValue(newFilterValue)}
+          />
+        </div>
+        <div className="col-auto my-auto">
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => setUserClickCount((lastValue) => lastValue + 1)}
+          >
+            Load books
+          </button>
+        </div>
       </div>
       {loading && <Spinner />}
-      <hr />
 
       <div className="row">
         <div className="col-4">
-          {filteredBooks.map((i) => (
-            <Item onClick={(b) => setSelectedBook(b)} key={i.id} item={i} />
-          ))}
+          <ul className="list-group">
+            {filteredBooks.map((i) => (
+              <Item
+                onClick={(b) => setSelectedBook(b)}
+                key={i.id}
+                item={i}
+                isSelected={i.id === selectedBook?.id}
+              />
+            ))}
+          </ul>
         </div>
         <div className="col">
           {selectedBook && <BookDetails book={selectedBook} />}

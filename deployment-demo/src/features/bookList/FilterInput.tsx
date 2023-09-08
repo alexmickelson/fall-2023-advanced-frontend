@@ -10,7 +10,13 @@ export const FilterInput: FC<{ onChange: (i: string) => void }> = ({
   }, [filterUserInput]);
   return (
     <>
+      <label htmlFor="filterBooks" className="form-label">
+        Filter:
+      </label>
       <input
+        className="form-control"
+        placeholder="Filter books..."
+        id="filterBooks"
         value={filterUserInput}
         onChange={(e) => {
           setFilterUserInput(e.target.value);
