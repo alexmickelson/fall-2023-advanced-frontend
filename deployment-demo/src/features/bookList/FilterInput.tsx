@@ -9,11 +9,13 @@ export const FilterInput: FC<{ onChange: (i: string) => void }> = ({
     onChange(filterUserInput);
   }, [filterUserInput]);
   return (
-    <input
-      value={filterUserInput}
-      onChange={(e) => {
-        setFilterUserInput(e.target.value);
-      }}
-    />
+    <>
+      <input
+        value={filterUserInput}
+        onChange={(e) => {
+          setFilterUserInput(e.target.value);
+        }}
+      />
+    </>
   );
 };

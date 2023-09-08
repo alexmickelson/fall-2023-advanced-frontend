@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Book } from "./models/books";
+import { Book } from "../../models/books";
 
 export const Item: FC<{
   item: Book;
