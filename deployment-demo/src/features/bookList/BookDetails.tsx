@@ -2,15 +2,18 @@ import React, { FC } from "react";
 import { Book } from "../../models/books";
 import { BookForm } from "./BookForm";
 
-export const BookDetails: FC<{ item: Book }> = ({ item }) => {
+export const BookDetails: FC<{
+  item: Book;
+  updateItem: (book: Book) => void;
+}> = ({ item, updateItem }) => {
   const BookDetail = {
-    "Author": item.author,
-    "ISBN": item.ISBN,
+    Author: item.author,
+    ISBN: item.ISBN,
     "Published Date": item.publishedDate.toString(),
-    "Genre": item.genre,
+    Genre: item.genre,
     "Page Count": item.pages,
-    "Language": item.language,
-    "Publisher": item.publisher,
+    Language: item.language,
+    Publisher: item.publisher,
   };
 
   return (
@@ -24,7 +27,7 @@ export const BookDetails: FC<{ item: Book }> = ({ item }) => {
       ))}
 
       <hr />
-      <BookForm book={item} />
+      <BookForm key={item.id} book={item} updateBook={updateItem} />
     </div>
   );
 };

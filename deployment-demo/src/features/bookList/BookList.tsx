@@ -11,7 +11,6 @@ export const BookList = () => {
   const [loading, setLoading] = useState(false);
   const [userClickCount, setUserClickCount] = useState(1);
   const [newFilterValue, setNewFilterValue] = useState("");
-  const [selectedBook, setSelectedBook] = useState<Book | undefined>();
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
 
   useEffect(() => {
@@ -52,6 +51,11 @@ export const BookList = () => {
         items={filteredBooks}
         ListComponent={BookItem}
         ItemDetail={BookDetails}
+        updateItem={(newBook: Book) => {
+          setBooks((oldBooks) =>
+            oldBooks.map((b) => (b.id === newBook.id ? newBook : b))
+          );
+        }}
       />
     </div>
   );

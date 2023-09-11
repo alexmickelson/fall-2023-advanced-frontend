@@ -7,6 +7,7 @@ interface Props<
   }
 > {
   items: T[];
+  updateItem: (i: T) => void;
   ListComponent: FC<{
     item: T;
     isSelected: boolean;
@@ -14,6 +15,7 @@ interface Props<
   }>;
   ItemDetail: FC<{
     item: T;
+    updateItem: (i: T) => void;
   }>;
 }
 
@@ -21,25 +23,29 @@ export const ListDetail = <T extends { id: string; title: string }>({
   items,
   ListComponent,
   ItemDetail,
+  updateItem,
 }: Props<T>) => {
-  const [selectedItem, setSelectedItem] = useState<T>();
+  const [selectedItemId, setSelectedItemId] = useState<string>()
 
+  const selectedItem = items.find(i => i.id === selectedItemId)
   return (
     <div className="row">
       <div className="col-4">
         <ul className="list-group">
           {items.map((i) => (
             <ListComponent
-              onClick={(b) => setSelectedItem(b)}
+              onClick={(b) => setSelectedItemId(b.id)}
               key={i.id}
               item={i}
-              isSelected={i.id === selectedItem?.id}
+              isSelected={i.id === selectedItemId}
             />
           ))}
         </ul>
       </div>
       <div className="col">
-        {selectedItem && <ItemDetail item={selectedItem} />}
+        {selectedItem && (
+          <ItemDetail item={selectedItem} updateItem={updateItem} />
+        )}
       </div>
     </div>
   );
