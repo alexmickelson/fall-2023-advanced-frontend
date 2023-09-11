@@ -23,6 +23,7 @@ export const ListDetail = <T extends { id: string; title: string }>({
   ItemDetail,
 }: Props<T>) => {
   const [selectedItem, setSelectedItem] = useState<T>();
+
   return (
     <div className="row">
       <div className="col-4">

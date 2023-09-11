@@ -1,8 +1,10 @@
+import { CustomModal } from "./components/CustomModal";
 import { BookList } from "./features/bookList/BookList";
 
 const App = () => {
   return (
     <div className="container-md">
+      <CustomModal></CustomModal>
       <BookList></BookList>
     </div>
   );
