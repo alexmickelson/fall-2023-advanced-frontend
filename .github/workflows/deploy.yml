@@ -2,7 +2,7 @@ name: Update home server containers
 on: [push, workflow_dispatch]
 jobs:
   deploy-application:
-    runs-on: [self-hosted, office-server]
+    runs-on: [ office-server ]
     steps:
       - name: checkout repo
         uses: actions/checkout@v2

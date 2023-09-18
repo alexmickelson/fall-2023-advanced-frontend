@@ -8,18 +8,17 @@ services:
     container_name: swag
     cap_add:
       - NET_ADMIN
-    env_file:
-    - .env
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Denver
       - URL=reactdemo.duckdns.org
       - VALIDATION=duckdns
+      - DUCKDNSTOKEN=${DUCKDNSTOKEN}
       - STAGING=false
     volumes:
       - /home/alex/data/swag:/config
-      - ./default.conf:/config/nginx/site-confs/default.conf
+      - ./swag-default.conf:/config/nginx/site-confs/default.conf
     ports:
     - 0.0.0.0:3011:443 
     restart: unless-stopped
