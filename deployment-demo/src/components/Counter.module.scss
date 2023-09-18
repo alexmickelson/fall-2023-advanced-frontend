@@ -1,0 +1,6 @@
+@import "../assets/custom.scss";
+
+.button {
+  @extend .btn;
+  @extend .btn-info;
+}

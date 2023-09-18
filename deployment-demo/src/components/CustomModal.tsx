@@ -1,26 +1,39 @@
 import { Modal } from "bootstrap";
 import { FC, ReactNode, useEffect, useState } from "react";
 
+export interface CustomModalControl {
+  isShowing: boolean;
+  isInTransition: boolean;
+  show: () => void;
+  hide: () => void;
+}
 
+export const prettyDate = (date: Date) => {
+  return date.toISOString();
+};
 
-export const CustomModal: FC<{
-  children: ReactNode;
-  onChange: (s: boolean) => void;
-}> = ({ children, onChange }) => {
-  const [show, setShow] = useState(true);
+export const useName = (inputFirstName: string, inputLastName: string) => {
+  const [firstName, setFirstName] = useState(inputFirstName);
+  const [lastName, setLastName] = useState(inputLastName);
+
+  return {
+    firstName,
+    lastName,
+    fullName: firstName + " " + lastName,
+  };
+};
+
+export const useCustomModalControl = ({
+  onClose,
+}: {
+  onClose: () => void;
+}): CustomModalControl => {
+  const [isShowing, setIsShowing] = useState(true);
   const [isInTransition, setIsInTransition] = useState(false);
 
   useEffect(() => {
-    const modalElement = document.getElementById("exampleModal");
-    if (!modalElement) return;
-
-    const bootstrapModalObject = Modal.getOrCreateInstance(modalElement);
-    bootstrapModalObject.show();
-  }, []);
-
-  useEffect(() => {
     const callback = () => {
-      onChange(true);
+      setIsShowing(true);
       setIsInTransition(true);
     };
     const modalElement = document.getElementById("exampleModal");
@@ -48,6 +61,7 @@ export const CustomModal: FC<{
   useEffect(() => {
     const callback = () => {
       setIsInTransition(true);
+      onClose();
     };
     const modalElement = document.getElementById("exampleModal");
     if (!modalElement) return;
@@ -60,7 +74,7 @@ export const CustomModal: FC<{
 
   useEffect(() => {
     const callback = () => {
-      onChange(false);
+      setIsShowing(false);
       setIsInTransition(false);
     };
     const modalElement = document.getElementById("exampleModal");
@@ -71,23 +85,48 @@ export const CustomModal: FC<{
       modalElement.removeEventListener("hidden.bs.modal", callback);
     };
   }, []);
+
+  const show = () => {
+    if (isInTransition) return;
+
+    const modalElement = document.getElementById("exampleModal");
+    if (!modalElement) return;
+
+    const bootstrapModalObject = Modal.getOrCreateInstance(modalElement);
+    bootstrapModalObject.show();
+  };
+
+  const hide = () => {
+    if (isInTransition) return;
+
+    const modalElement = document.getElementById("exampleModal");
+    if (!modalElement) return;
+
+    const bootstrapModalObject = Modal.getOrCreateInstance(modalElement);
+    bootstrapModalObject.hide();
+  };
+
+  const output: CustomModalControl = {
+    isShowing,
+    isInTransition,
+    show,
+    hide,
+  };
+  return output;
+};
+
+export const CustomModal: FC<{
+  children: ReactNode;
+  control: CustomModalControl;
+}> = ({ children, control }) => {
   return (
     <>
-      {/* <button
-        type="button"
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        onClick={() => setShow(true)}
-      >
-        Launch demo modal
-      </button> */}
       <div
         className={"modal fade"}
         id="exampleModal"
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
-        aria-hidden={show}
+        aria-hidden="true"
       >
         <div className="modal-dialog">
           <div className="modal-content">
@@ -108,14 +147,13 @@ export const CustomModal: FC<{
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
-                onClick={() => setShow(false)}
               >
                 Close
               </button>
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => setShow(false)}
+                onClick={() => control.hide()}
               >
                 Save changes
               </button>
