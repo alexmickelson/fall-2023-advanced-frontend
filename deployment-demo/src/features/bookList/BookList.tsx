@@ -12,6 +12,7 @@ export const BookList = () => {
   const [userClickCount, setUserClickCount] = useState(1);
   const [newFilterValue, setNewFilterValue] = useState("");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+  console.log(books);
 
   useEffect(() => {
     setLoading(true);

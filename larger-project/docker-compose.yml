@@ -2,10 +2,6 @@ version: "3"
 services:
   client:
     build: .
-    # ports:
-    # - 0.0.0.0:3011:80
-    volumes:
-      - ./public/dog.jpg:/usr/share/nginx/html/dog.jpg
 
   swag:
     image: lscr.io/linuxserver/swag
