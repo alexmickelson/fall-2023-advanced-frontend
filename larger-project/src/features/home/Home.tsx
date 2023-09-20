@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { getBooks } from "../../services/bookService";
 import { Link } from "react-router-dom";
 import { BookContext, BookContextType } from "../../context/bookContext";
@@ -6,19 +12,26 @@ import { FilterInput, useFilterInput } from "./FilterInput";
 
 export const Home = () => {
   const [counter, setCounter] = useState(1);
-  const { books, setBooks } = useContext(BookContext) as BookContextType;
+  const { books, setBooks } = useContext(BookContext);
   const filterControl = useFilterInput();
 
-  useEffect(() => {
-    getBooks().then((newBooks) => setBooks(newBooks));
-  }, []);
+  const incrementCounter = useCallback(
+    () => {
+      return () => setCounter((c) => c + 1)
+    },
+    []
+  );
 
-  const filteredBooks = books.filter((b) => {
-    console.log("string comparison");
-    return b.title
-      .toLocaleLowerCase()
-      .includes(filterControl.filterValue.toLocaleLowerCase());
-  });
+  const filteredBooks = useMemo(
+    () =>
+      books.filter((b) => {
+        console.log("string comparison");
+        return b.title
+          .toLocaleLowerCase()
+          .includes(filterControl.filterValue.toLocaleLowerCase());
+      }),
+    [books, filterControl.filterValue]
+  );
 
   return (
     <div className="container">
@@ -28,7 +41,7 @@ export const Home = () => {
         <br />
         <button
           className="btn btn-outline-secondary"
-          onClick={() => setCounter((c) => c + 1)}
+          onClick={incrementCounter}
         >
           Increment
         </button>

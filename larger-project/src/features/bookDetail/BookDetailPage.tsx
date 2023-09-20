@@ -7,10 +7,6 @@ export const BookDetailPage = () => {
   const { bookId } = useParams();
   const { books, setBooks } = useContext(BookContext) as BookContextType ;
 
-  useEffect(() => {
-    getBooks().then((newBooks) => setBooks(newBooks));
-  }, []);
-
   const selectedBook = books.find((b) => b.id === bookId);
 
   return (
