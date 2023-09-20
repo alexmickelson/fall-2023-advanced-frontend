@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Book } from "../../models/books";
 import { getBooks } from "../../services/bookService";
+import { BookContext, BookContextType } from "../../context/bookContext";
 
 export const BookDetailPage = () => {
   const { bookId } = useParams();
-  const [books, setBooks] = useState<Book[]>([]);
+  const { books, setBooks } = useContext(BookContext) as BookContextType ;
 
   useEffect(() => {
-    getBooks().then((books) => setBooks(books));
+    getBooks().then((newBooks) => setBooks(newBooks));
   }, []);
 
   const selectedBook = books.find((b) => b.id === bookId);
