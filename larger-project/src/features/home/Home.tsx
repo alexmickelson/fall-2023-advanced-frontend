@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { getBooks } from "../../services/bookService";
 import { Link } from "react-router-dom";
 import { BookContext, BookContextType } from "../../context/bookContext";
 import { FilterInput, useFilterInput } from "./FilterInput";
@@ -15,12 +14,9 @@ export const Home = () => {
   const { books, setBooks } = useContext(BookContext);
   const filterControl = useFilterInput();
 
-  const incrementCounter = useCallback(
-    () => {
-      return () => setCounter((c) => c + 1)
-    },
-    []
-  );
+  const incrementCounter = useCallback(() => {
+    setCounter((c) => c + 1);
+  }, []);
 
   const filteredBooks = useMemo(
     () =>
@@ -41,7 +37,7 @@ export const Home = () => {
         <br />
         <button
           className="btn btn-outline-secondary"
-          onClick={incrementCounter}
+          onClick={() => incrementCounter()}
         >
           Increment
         </button>
