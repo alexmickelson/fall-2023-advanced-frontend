@@ -1,12 +1,12 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Book } from "../../models/books";
 import { DoneIcon, EditIcon } from "./EditIcon";
+import { BookContext } from "../../context/bookContext";
 
 export const EditableBookTitle: FC<{ book: Book }> = ({ book }) => {
+  const { updateBook } = useContext(BookContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editingTitle, setEditingTitle] = useState(book.title);
-
-  const saveTitle = () => {};
 
   return (
     <div className="row justify-content-center my-3">
@@ -19,7 +19,13 @@ export const EditableBookTitle: FC<{ book: Book }> = ({ book }) => {
           <input
             className="form-control"
             value={editingTitle}
-            onChange={(e) => setEditingTitle(e.target.value)}
+            onChange={(e) => {
+              setEditingTitle(e.target.value);
+              updateBook({
+                ...book,
+                title: e.target.value,
+              });
+            }}
           />
         )}
       </div>
@@ -35,10 +41,7 @@ export const EditableBookTitle: FC<{ book: Book }> = ({ book }) => {
         {isEditing && (
           <button
             className="btn btn-success"
-            onClick={() => {
-              saveTitle();
-              setIsEditing(false);
-            }}
+            onClick={() => setIsEditing(false)}
           >
             <DoneIcon />
           </button>

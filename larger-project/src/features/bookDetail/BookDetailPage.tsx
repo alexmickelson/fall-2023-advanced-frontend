@@ -28,11 +28,7 @@ export const BookDetailPage = () => {
           <strong>Author:</strong>
         </div>
         <div className="col my-auto">{selectedBook?.author}</div>
-        <div className="col my-auto">
-          <button className="btn btn-primary">
-            <EditIcon />
-          </button>
-        </div>
+        <div className="col my-auto"></div>
       </div>
     </div>
   );
