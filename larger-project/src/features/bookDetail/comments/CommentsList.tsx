@@ -1,20 +1,20 @@
 import React, { FC } from "react";
 import { Book } from "../../../models/books";
-import { COMMENT_ACTION, useCommentReducer } from "./commentReducer";
+import { useCommentReducer } from "./commentReducer";
 
 export const CommentsList: FC<{ book: Book }> = ({ book }) => {
   const [state, dispatch] = useCommentReducer();
 
   const handleAddComment = (bookID: string, comment: string) => {
     dispatch({
-      type: COMMENT_ACTION.ADD_COMMENT,
+      type: "ADD_COMMENT",
       payload: { bookID, comment },
     });
   };
 
   const handleDeleteComment = (commentIndex: number) => {
     dispatch({
-      type: COMMENT_ACTION.DELETE_COMMENT,
+      type: "DELETE_COMMENT",
       payload: { commentIndex },
     });
   };

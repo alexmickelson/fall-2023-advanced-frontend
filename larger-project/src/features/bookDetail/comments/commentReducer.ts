@@ -1,44 +1,38 @@
 import { useReducer } from 'react';
 
 
-export enum COMMENT_ACTION {
-  ADD_COMMENT = "ADD_COMMENT",
-  DELETE_COMMENT = "DELETE_COMMENT"
+interface CommentState {
+  comments: {
+    bookID: string;
+    comment: string;
+  }[];
 }
 
-interface Comment {
-  bookID: string;
-  comment: string;
+export interface CommentAction {
+  type: string,
+  payload: any
 }
 
-export type CommentAction = 
-  | { type: COMMENT_ACTION.ADD_COMMENT, payload: { bookID: string, comment: string } }
-  | { type: COMMENT_ACTION.DELETE_COMMENT, payload: { commentIndex: number } }
+export const useCommentReducer = () => {
 
-export const commentReducer = (state: CommentState, action: CommentAction): CommentState => {
-  switch (action.type) {
-    case COMMENT_ACTION.ADD_COMMENT:
+  const commentReducer = (state: CommentState, action: CommentAction): CommentState => {
+    if (action.type == "ADD_COMMENT")
       return {
         ...state,
         comments: [...state.comments, action.payload],
       };
-    case COMMENT_ACTION.DELETE_COMMENT:
+
+    if (action.type == "DELETE_COMMENT")
       return {
         ...state,
         comments: state.comments.filter(
-          (_: Comment, index: number) => index !== action.payload.commentIndex
+          (_comment, index) => index !== action.payload.commentIndex
         ),
       };
-    default:
-      return state;
+
+    return state;
   }
-};
 
-
-interface CommentState {
-  comments: Comment[];
-}
-
-export const useCommentReducer = () => {
-  return useReducer(commentReducer, { comments: [] });
+  const startingState: CommentState = { comments: [] };
+  return useReducer(commentReducer, startingState);
 }
