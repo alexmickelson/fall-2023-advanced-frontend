@@ -4,6 +4,7 @@ import { getBooks } from "../../services/bookService";
 import { BookContext, BookContextType } from "../../context/bookContext";
 import { EditIcon } from "./EditIcon";
 import { EditableBookTitle } from "./EditableBookTitle";
+import { BookComments } from "./comments/BookComments";
 
 export const BookDetailPage = () => {
   const { bookId } = useParams();
@@ -30,6 +31,8 @@ export const BookDetailPage = () => {
         <div className="col my-auto">{selectedBook?.author}</div>
         <div className="col my-auto"></div>
       </div>
+
+      {selectedBook && <BookComments book={selectedBook} />}
     </div>
   );
 };
