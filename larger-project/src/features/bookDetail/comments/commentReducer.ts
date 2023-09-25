@@ -1,38 +1,64 @@
 import { useReducer } from 'react';
+import { createStore } from 'redux';
 
-
-interface CommentState {
-  comments: {
-    bookID: string;
-    comment: string;
-  }[];
+interface Comment {
+  bookID: string;
+  comment: string;
+  id: string;
+}
+export interface CommentState {
+  comments: Comment[];
 }
 
-export interface CommentAction {
-  type: string,
-  payload: any
+
+export enum ACTION_TYPE {
+  ADD_COMMENT = "ADD_COMMENT",
+  DELETE_COMMENT = "DELETE_COMMENT"
 }
 
-export const useCommentReducer = () => {
+export type CommentAction =
+  | {
+    type: ACTION_TYPE.ADD_COMMENT,
+    payload: Comment
+  }
+  | {
+    type: ACTION_TYPE.DELETE_COMMENT,
+    payload: { commentIndex: number }
+  }
 
-  const commentReducer = (state: CommentState, action: CommentAction): CommentState => {
-    if (action.type == "ADD_COMMENT")
+export const addComment =
+  (bookID: string, comment: string): CommentAction => ({
+    type: ACTION_TYPE.ADD_COMMENT,
+    payload: { bookID, comment, id: crypto.randomUUID() },
+  })
+
+
+export const deleteComment =
+  (commentIndex: number): CommentAction => ({
+    type: ACTION_TYPE.DELETE_COMMENT,
+    payload: { commentIndex },
+  })
+
+
+const commentReducer =
+  (state: CommentState = { comments: [] }, action: CommentAction) => {
+  switch (action.type) {
+    case ACTION_TYPE.ADD_COMMENT:
       return {
         ...state,
         comments: [...state.comments, action.payload],
       };
-
-    if (action.type == "DELETE_COMMENT")
+    case ACTION_TYPE.DELETE_COMMENT:
       return {
         ...state,
         comments: state.comments.filter(
           (_comment, index) => index !== action.payload.commentIndex
         ),
       };
-
-    return state;
+    default:
+      return state;
   }
-
-  const startingState: CommentState = { comments: [] };
-  return useReducer(commentReducer, startingState);
 }
+
+export const commentStore = createStore(commentReducer);
+
