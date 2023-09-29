@@ -1,0 +1,8 @@
+.dockerignore
+node_modules/
+data.json/
+.gitignore
+*.md
+.vscode/
+*.http
+Dockerfile

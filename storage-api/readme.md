@@ -9,3 +9,8 @@ npm install ts-node nodemon --save-dev
 ```
 
 install extension: humao.rest-client
+
+docker:
+
+docker build -t storage-api .
+docker run -it --rm -p 3000:3000 storage-api
