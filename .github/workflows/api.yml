@@ -1,6 +1,4 @@
-name: Deploy react client
-env: 
-  DUCKDNSTOKEN: ${{ secrets.DUCKDNSTOKEN }}
+name: Deploy API
 on: [push, workflow_dispatch]
 jobs:
   deploy-application:
@@ -11,7 +9,7 @@ jobs:
 
       - name: redeploy application
         run: |
-          cd larger-project
+          cd storage-api
           docker compose pull
           docker compose build
           docker compose up -d

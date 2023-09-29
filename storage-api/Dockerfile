@@ -9,4 +9,4 @@ RUN npm install
 COPY . .
 RUN npx tsc
 
-CMD ["node", "index.js"]
+CMD ["node", "src/index.js"]
