@@ -62,3 +62,4 @@
 
 // export const commentStore = createStore(commentReducer);
 
+export default {}

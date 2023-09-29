@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import { Book } from "../../../models/books";
 import { CommentsList } from "./CommentsList";
 import { Provider } from "react-redux";
-import { commentStore } from "./commentReducer";
+import store from "./commentStore";
 
 export const BookComments: FC<{ book: Book }> = ({ book }) => (
-  <Provider store={commentStore}>
+  <Provider store={store}>
     <CommentsList book={book} />
   </Provider>
 );
