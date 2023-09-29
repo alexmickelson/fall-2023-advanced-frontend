@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Book } from "../../../models/books";
 import { useDispatch, useSelector } from "react-redux";
-import { CommentState, addComment, deleteComment } from "./commentStore";
+import { CommentState, addComment, deleteComment, useAppDispatch, useAppSelector } from "./commentStore";
 
 export const CommentsList: FC<{ book: Book }> = ({ book }) => {
-  const comments = useSelector((state: CommentState) => state.comments);
-  const dispatch = useDispatch();
+  const comments = useAppSelector((state) => state.comments);
+  const dispatch = useAppDispatch();
 
   const handleAddComment = (bookID: string, comment: string) => {
     dispatch(addComment({ bookID, comment }));

@@ -1,0 +1,13 @@
+POST http://localhost:3000/store?key=restclient
+Content-Type: application/json
+
+{
+  "testdata": "this is test data"
+}
+
+###
+
+GET http://localhost:3000/store?key=restclient
+
+###
+DELETE http://localhost:3000/store?key=restclient
