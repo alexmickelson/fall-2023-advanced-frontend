@@ -1,0 +1,27 @@
+version: "3"
+services:
+  client:
+    build: .
+
+  api:
+    build: ../larger-project
+    container_name: alex-api
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=reactdemo.duckdns.org
+      - VALIDATION=duckdns
+      - DUCKDNSTOKEN=${DUCKDNSTOKEN}
+      - STAGING=false
+    volumes:
+      - /home/alex/data/swag:/config
+      - ./swag-default.conf:/config/nginx/site-confs/default.conf
+    ports:
+    - 0.0.0.0:3011:443 
+    restart: unless-stopped
