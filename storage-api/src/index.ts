@@ -7,7 +7,7 @@ const dataFile = 'data.json';
 
 app.use(express.json());
 
-app.post('/store', (req: Request, res: Response) => {
+app.post('/api/store', (req: Request, res: Response) => {
   const key = req.query.key as string;
   const value = req.body;
 
@@ -25,7 +25,7 @@ app.post('/store', (req: Request, res: Response) => {
   res.json({ message: 'Data stored successfully' });
 });
 
-app.get('/store', (req: Request, res: Response) => {
+app.get('/api/store', (req: Request, res: Response) => {
   const key = req.query.key as string;
 
   if (!key) return res.status(400).send('Key is required');
@@ -39,7 +39,7 @@ app.get('/store', (req: Request, res: Response) => {
   res.status(404).send('Key not found');
 });
 
-app.delete('/store', (req: Request, res: Response) => {
+app.delete('/api/store', (req: Request, res: Response) => {
   const key = req.query.key as string;
 
   if (!key) return res.status(400).send('Key is required');
