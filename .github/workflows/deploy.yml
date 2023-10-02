@@ -1,4 +1,4 @@
-name: Deploy react client
+name: Deploy react
 env: 
   DUCKDNSTOKEN: ${{ secrets.DUCKDNSTOKEN }}
 on: [push, workflow_dispatch]
@@ -14,4 +14,5 @@ jobs:
           cd larger-project
           docker compose pull
           docker compose build
+          docker compose down
           docker compose up -d

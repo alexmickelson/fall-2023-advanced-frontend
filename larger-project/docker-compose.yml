@@ -6,6 +6,7 @@ services:
   api:
     build: ../larger-project
     container_name: alex-api
+    
   swag:
     image: lscr.io/linuxserver/swag
     container_name: swag
