@@ -6,6 +6,8 @@ services:
   api:
     build: ../storage-api
     container_name: alex-api
+    volumes:
+      - /home/alexm/data/apiStorage:/app/storage
 
   swag:
     image: lscr.io/linuxserver/swag

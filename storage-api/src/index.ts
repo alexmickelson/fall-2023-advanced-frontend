@@ -3,7 +3,7 @@ import fs from 'fs';
 
 const app = express();
 const port = 3000;
-const dataFile = 'data.json';
+const dataFile = 'storage/data.json';
 
 app.use(express.json());
 
