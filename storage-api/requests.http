@@ -46,6 +46,10 @@ Content-Type: application/json
 
 ###
 
+GET https://reactdemo.duckdns.org:3011/einfwoefinweoif
+
+###
+
 GET https://reactdemo.duckdns.org:3011/api/store?key=restclient
 
 ###
