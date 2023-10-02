@@ -14,3 +14,9 @@ docker:
 
 docker build -t storage-api .
 docker run -it --rm -p 3000:3000 storage-api
+
+## Debugging Steps
+
+1. container logs
+   1. swag first
+2. container networks
