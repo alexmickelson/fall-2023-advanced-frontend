@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, configureStore } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Comment {
   bookID: string;
@@ -13,7 +12,7 @@ export interface CommentState {
 
 const initialState: CommentState = { comments: [] };
 
-const commentSlice = createSlice({
+export const commentSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
@@ -28,14 +27,3 @@ const commentSlice = createSlice({
 
 export const { addComment, deleteComment } = commentSlice.actions;
 
-const store = configureStore({
-  reducer: commentSlice.reducer,
-});
-
-export default store;
-
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
-
-export type RootState = ReturnType<typeof store.getState>
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

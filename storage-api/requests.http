@@ -50,7 +50,7 @@ GET https://reactdemo.duckdns.org:3011/einfwoefinweoif
 
 ###
 
-GET https://reactdemo.duckdns.org:3011/api/store?key=restclient
+GET https://reactdemo.duckdns.org:3011/api/store?key=otherkey
 
 ###
 DELETE https://reactdemo.duckdns.org:3011/api/store?key=restclient
