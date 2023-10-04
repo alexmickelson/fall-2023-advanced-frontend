@@ -4,7 +4,9 @@ Parts of a context (with typescript):
 - Provider
 - data / methods
 
-## Web Request TODO
+## Web Request Mob Programming
+
+do not use the async and await keywords outside of the service files. Perform async functions with `.then()` and `.catch()`
 
 1. web requests with fetch
    1. click a button to store data on the api
