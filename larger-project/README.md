@@ -18,6 +18,6 @@ do not use the async and await keywords outside of the service files. Perform as
    1. save stores input in api
    2. displayText data is loaded from api
 4. Harden web requests
-   1. when a request is in fight show the spinner
+   1. when a request is in flight show the spinner
    2. when web request results in an error, show error text
    3. prevent double clicks of the submit button

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Spinner } from "../../components/Spinner";
+import { apiService } from "./apiService";
 
 export const WebRequests = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const [displayText, setDisplayText] = useState("this is API data");
 
@@ -12,6 +14,22 @@ export const WebRequests = () => {
 
       <hr />
       <button
+        disabled={loading}
+        onClick={() => {
+          setLoading(true);
+          apiService
+            .getDataFetch()
+            .then((b) => {
+              setLoading(false);
+              console.log(b);
+            })
+            .catch();
+        }}
+      >
+        Get
+      </button>
+      <button onClick={() => apiService.addDataFetch().catch()}>Add</button>
+      <button
         className="btn btn-outline-secondary"
         onClick={() => setIsEditing((e) => !e)}
       >
@@ -19,6 +37,7 @@ export const WebRequests = () => {
       </button>
 
       <hr />
+      {loading && <Spinner />}
       {!isEditing && <h3 className="text-center">{displayText}</h3>}
 
       {isEditing && (
