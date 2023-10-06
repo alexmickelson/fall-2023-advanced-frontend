@@ -22,11 +22,8 @@ export const todoListService = {
   storeTodoItems: async (items: TodoItem[]) => {
     await axios.post(url + "todoItems", items)
   },
-
   getTodoItems: async (): Promise<TodoItem[]> => {
     const response = await axios.get(url + "todoItems")
     return response.data
   }
-
-
 }

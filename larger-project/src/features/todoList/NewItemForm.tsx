@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Spinner } from "../../components/Spinner";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { todoListService } from "./todoListService";
-import { TodoItem, setItems } from "./todoListSlice";
+import { TodoItem, updateAndGetItemsThunk } from "./todoListSlice";
 
 export const NewItemForm = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector((s) => s.todo.items);
+  const loading = useAppSelector((s) => s.todo.loading);
   const [newItemText, setNewItemText] = useState("");
 
-  const [loadingRequest, setLoadingRequest] = useState(false);
-
   const addItem = () => {
+    if (loading) return;
     const newItemList: TodoItem[] = [
       ...items,
       {
@@ -20,17 +20,8 @@ export const NewItemForm = () => {
         complete: false,
       },
     ];
-    setLoadingRequest(true);
-    todoListService.storeTodoItems(newItemList).then(() => {
-      todoListService
-        .getTodoItems()
-        .then((itemsFromApi) => {
-          dispatch(setItems({ items: itemsFromApi }));
-        })
-        .then(() => {
-          setNewItemText("");
-          setLoadingRequest(false);
-        });
+    dispatch(updateAndGetItemsThunk(newItemList)).then(() => {
+      setNewItemText("");
     });
   };
 
@@ -51,13 +42,9 @@ export const NewItemForm = () => {
         className="form-control"
         id="newItemText"
       />
-      <button
-        className="btn btn-outline-primary mt-3"
-        disabled={loadingRequest}
-      >
+      <button className="btn btn-outline-primary mt-3" disabled={loading}>
         Add
       </button>
-      {loadingRequest && <Spinner />}
     </form>
   );
 };

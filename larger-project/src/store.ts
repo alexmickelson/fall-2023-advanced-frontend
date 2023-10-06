@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { AnyAction, Dispatch, ThunkDispatch, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { commentSlice } from "./features/bookDetail/comments/commentSlice";
 import { todoListSlice } from "./features/todoList/todoListSlice";
@@ -12,7 +12,8 @@ const store = configureStore({
 
 export default store;
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = ThunkDispatch<typeof store.dispatch, null | undefined, AnyAction> &
+  Dispatch<AnyAction>;
 export const useAppDispatch: () => AppDispatch = useDispatch
 
 export type RootState = ReturnType<typeof store.getState>

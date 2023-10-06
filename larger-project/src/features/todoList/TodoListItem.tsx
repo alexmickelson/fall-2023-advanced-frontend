@@ -1,56 +1,40 @@
 import React, { FC, useState } from "react";
-import { TodoItem, setItems } from "./todoListSlice";
-import { useDispatch } from "react-redux";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { todoListService } from "./todoListService";
+import { TodoItem } from "./todoListSlice";
 import { Spinner } from "../../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
+
   const dispatch = useAppDispatch();
   const items = useAppSelector((s) => s.todo.items);
+  const loading = useAppSelector((s) => s.todo.loading);
   const [isEditing, setIsEditing] = useState(false);
   const [editItemText, setEditItemText] = useState(todo.text);
-  const [loading, setLoading] = useState(false);
 
   const editItem = () => {
-    setLoading(true);
-
+    if (loading) return;
     const newItem = { ...todo, text: editItemText };
     const newItems: TodoItem[] = items.map((i) =>
       i.id === todo.id ? newItem : i
     );
-
-    todoListService.storeTodoItems(newItems).then(() => {
-      todoListService
-        .getTodoItems()
-        .then((itemsFromApi) => {
-          dispatch(setItems({ items: itemsFromApi }));
-        })
-        .then(() => {
-          setIsEditing(false);
-          setLoading(false);
-        });
-    });
+// dispatch(updateAndGetItemsThunk(newItems));
+    // dispatch(updateAndGetItemsThunk(newItems))
+    // dispatch(updateAndGetItemsThunk(newItems));
+      
+    //   .then(() => {
+    //   setIsEditing(false);
+    // });
   };
 
   const deleteItem = () => {
-    setLoading(true);
-    const newItems: TodoItem[] = items.filter((i) =>
-      i.id !== todo.id 
-    );
-    console.log('delete', newItems)
-    todoListService.storeTodoItems(newItems).then(() => {
-      todoListService
-        .getTodoItems()
-        .then((itemsFromApi) => {
-          dispatch(setItems({ items: itemsFromApi }));
-        })
-        .then(() => {
-          setIsEditing(false);
-          setLoading(false);
-        });
-    });
-  }
+    if (loading) return;
+    const newItems: TodoItem[] = items.filter((i) => i.id !== todo.id);
+    // dispatch(updateAndGetItemsThunk(newItems))
+      
+    //   .then(() => {
+    //   setIsEditing(false);
+    // });
+  };
   return (
     <li key={todo.id} className="">
       <form
@@ -89,23 +73,29 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
                 setEditItemText(todo.text);
                 setIsEditing(true);
               }}
+              disabled={loading}
             >
               Edit
             </button>
           )}
         </div>
         <div className="col-auto my-auto">
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => {
-                deleteItem();
-              }}
-            >
-              delete
-            </button>
+          <button
+            className="btn btn-outline-danger"
+            onClick={() => {
+              deleteItem();
+            }}
+            disabled={loading}
+          >
+            delete
+          </button>
         </div>
-        <div className="col">{loading && <Spinner />}</div>
+        <div className="col"></div>
       </form>
     </li>
   );
 };
+function updateAndGetItemsThunk(newItems: TodoItem[]) {
+  throw new Error("Function not implemented.");
+}
+
