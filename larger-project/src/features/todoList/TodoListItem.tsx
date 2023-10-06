@@ -20,7 +20,6 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
       i.id === todo.id ? newItem : i
     );
 
-    console.log("saving new items", newItems);
     todoListService.storeTodoItems(newItems).then(() => {
       todoListService
         .getTodoItems()
@@ -33,6 +32,25 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
         });
     });
   };
+
+  const deleteItem = () => {
+    setLoading(true);
+    const newItems: TodoItem[] = items.filter((i) =>
+      i.id !== todo.id 
+    );
+    console.log('delete', newItems)
+    todoListService.storeTodoItems(newItems).then(() => {
+      todoListService
+        .getTodoItems()
+        .then((itemsFromApi) => {
+          dispatch(setItems({ items: itemsFromApi }));
+        })
+        .then(() => {
+          setIsEditing(false);
+          setLoading(false);
+        });
+    });
+  }
   return (
     <li key={todo.id} className="">
       <form
@@ -53,7 +71,7 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
             <span>{todo.text}</span>
           )}
         </div>
-        <div className="col my-auto">
+        <div className="col-auto my-auto">
           {isEditing && (
             <button
               className="btn btn-primary"
@@ -75,6 +93,16 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
               Edit
             </button>
           )}
+        </div>
+        <div className="col-auto my-auto">
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => {
+                deleteItem();
+              }}
+            >
+              delete
+            </button>
         </div>
         <div className="col">{loading && <Spinner />}</div>
       </form>

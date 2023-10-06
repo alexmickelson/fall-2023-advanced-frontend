@@ -9,8 +9,6 @@ import { setItems } from "./todoListSlice";
 export const TodoList = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const [displayText, setDisplayText] = useState("this is API data");
-
   const items = useAppSelector((s) => s.todo.items);
 
   return (
