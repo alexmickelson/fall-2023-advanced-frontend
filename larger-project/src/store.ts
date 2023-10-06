@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { commentSlice } from "./features/bookDetail/comments/commentSlice";
-import { apiSlice } from "./features/webRequests/apiSlice";
+import { todoListSlice } from "./features/todoList/todoListSlice";
 
 const store = configureStore({
   reducer: {
     comments: commentSlice.reducer,
-    api: apiSlice.reducer
+    todo: todoListSlice.reducer
   },
 });
 

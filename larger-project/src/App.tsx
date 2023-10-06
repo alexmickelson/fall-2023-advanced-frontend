@@ -2,7 +2,7 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Home } from "./features/home/Home";
 import { BookDetailPage } from "./features/bookDetail/BookDetailPage";
-import { WebRequests } from "./features/webRequests/WebRequests";
+import { TodoList } from "./features/todoList/TodoList";
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -16,7 +16,7 @@ export const App = () => {
     },
     {
       path: "/webRequests",
-      element: <WebRequests />,
+      element: <TodoList />,
     },
   ]);
   return (
