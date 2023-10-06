@@ -1,9 +1,17 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 
 const app = express();
 const port = 3000;
 const dataFile = 'storage/data.json';
+
+const sleepMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+  setTimeout(() => {
+    next();
+  }, 2000);
+};
+app.use(sleepMiddleware);
+
 
 app.use(express.json());
 
