@@ -1,10 +1,9 @@
 import React, { FC, useState } from "react";
-import { TodoItem } from "./todoListSlice";
+import { TodoItem, updateItemsThunk } from "./todoListSlice";
 import { Spinner } from "../../components/Spinner";
 import { useAppDispatch, useAppSelector } from "../../store";
 
 export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
-
   const dispatch = useAppDispatch();
   const items = useAppSelector((s) => s.todo.items);
   const loading = useAppSelector((s) => s.todo.loading);
@@ -17,10 +16,10 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
     const newItems: TodoItem[] = items.map((i) =>
       i.id === todo.id ? newItem : i
     );
-// dispatch(updateAndGetItemsThunk(newItems));
+    // dispatch(updateAndGetItemsThunk(newItems));
     // dispatch(updateAndGetItemsThunk(newItems))
     // dispatch(updateAndGetItemsThunk(newItems));
-      
+
     //   .then(() => {
     //   setIsEditing(false);
     // });
@@ -28,9 +27,9 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
 
   const deleteItem = () => {
     if (loading) return;
-    const newItems: TodoItem[] = items.filter((i) => i.id !== todo.id);
+    const newItems = items.filter((i) => i.id !== todo.id);
     // dispatch(updateAndGetItemsThunk(newItems))
-      
+    // dispatch(updateItemsThunk);
     //   .then(() => {
     //   setIsEditing(false);
     // });
@@ -98,4 +97,3 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
 function updateAndGetItemsThunk(newItems: TodoItem[]) {
   throw new Error("Function not implemented.");
 }
-

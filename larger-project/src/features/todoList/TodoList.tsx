@@ -4,7 +4,7 @@ import { todoListService } from "./todoListService";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { TodoListItem } from "./TodoListItem";
 import { NewItemForm } from "./NewItemForm";
-import {  updateItemsThunk } from "./todoListSlice";
+import { updateItemsThunk } from "./todoListSlice";
 
 export const TodoList = () => {
   const dispatch = useAppDispatch();

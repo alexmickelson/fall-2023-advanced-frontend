@@ -22,7 +22,7 @@ export const updateAndGetItemsThunk = createAsyncThunk(
     const itemsFromApi = await todoListService.getTodoItems()
     return itemsFromApi
   }
-)
+);
 
 export const updateItemsThunk = createAsyncThunk(
   'todoItems/updateItems',
@@ -30,7 +30,7 @@ export const updateItemsThunk = createAsyncThunk(
     const itemsFromApi = await todoListService.getTodoItems()
     return itemsFromApi
   }
-)
+);
 
 const initialState: TodoListState = { items: [], loading: false };
 
