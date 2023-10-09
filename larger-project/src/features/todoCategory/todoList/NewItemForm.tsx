@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { TodoItem, updateAndGetItemsThunk } from "./todoListSlice";
+import React, { FC, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { updateAndGetItemsThunk } from "../todoListSlice";
+import { TodoItem } from "../models";
 
-export const NewItemForm = () => {
-  const dispatch = useAppDispatch();
-  const items = useAppSelector((s) => s.todo.items);
-  const loading = useAppSelector((s) => s.todo.loading);
+export const NewItemForm: FC<{ categoryId: string }> = ({ categoryId }) => {
   const [newItemText, setNewItemText] = useState("");
+  const items: TodoItem[] = [];
 
   const addItem = () => {
-    if (loading) return;
     const newItemList: TodoItem[] = [
       ...items,
       {
@@ -18,9 +16,8 @@ export const NewItemForm = () => {
         complete: false,
       },
     ];
-    dispatch(updateAndGetItemsThunk(newItemList)).then(() => {
-      setNewItemText("");
-    });
+
+    // call add item mutation
   };
 
   return (
@@ -40,9 +37,7 @@ export const NewItemForm = () => {
         className="form-control"
         id="newItemText"
       />
-      <button className="btn btn-outline-primary mt-3" disabled={loading}>
-        Add
-      </button>
+      <button className="btn btn-outline-primary mt-3">Add</button>
     </form>
   );
 };

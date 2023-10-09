@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch, ThunkDispatch, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { commentSlice } from "./features/bookDetail/comments/commentSlice";
-import { todoListSlice } from "./features/todoList/todoListSlice";
+import { todoListSlice } from "./features/todoCategory/todoListSlice";
 
 const store = configureStore({
   reducer: {

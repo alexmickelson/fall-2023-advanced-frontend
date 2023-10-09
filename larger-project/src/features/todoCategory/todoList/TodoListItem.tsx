@@ -1,32 +1,30 @@
 import React, { FC, useState } from "react";
-import { TodoItem, updateAndGetItemsThunk } from "./todoListSlice";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { TodoCategory, TodoItem } from "../models";
 
-export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
-  const dispatch = useAppDispatch();
-  const items = useAppSelector((s) => s.todo.items);
+export const TodoListItem: FC<{ todo: TodoItem; category: TodoCategory }> = ({
+  todo,
+  category,
+}) => {
   const loading = useAppSelector((s) => s.todo.loading);
   const [isEditing, setIsEditing] = useState(false);
   const [editItemText, setEditItemText] = useState(todo.text);
 
+  // todo: call api
   const editItem = () => {
     if (loading) return;
     const newItem = { ...todo, text: editItemText };
-    const newItems: TodoItem[] = items.map((i) =>
+    const newItems: TodoItem[] = category.items.map((i) =>
       i.id === todo.id ? newItem : i
     );
-    dispatch(updateAndGetItemsThunk(newItems)).then(() => {
-      setIsEditing(false);
-    });
   };
 
+  // todo call api
   const deleteItem = () => {
     if (loading) return;
-    const newItems = items.filter((i) => i.id !== todo.id);
-    dispatch(updateAndGetItemsThunk(newItems)).then(() => {
-      setIsEditing(false);
-    });
+    const newItems = category.items.filter((i) => i.id !== todo.id);
   };
+
   return (
     <li key={todo.id} className="">
       <form
