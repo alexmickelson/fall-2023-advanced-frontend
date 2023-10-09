@@ -8,7 +8,7 @@ const dataFile = 'storage/data.json';
 const sleepMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   setTimeout(() => {
     next();
-  }, 2000);
+  }, 1000);
 };
 app.use(sleepMiddleware);
 

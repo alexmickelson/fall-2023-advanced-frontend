@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { todoListService } from './todoListService';
-import { useDispatch } from 'react-redux';
-import { act } from 'react-dom/test-utils';
 
 export interface TodoItem {
   id: string,

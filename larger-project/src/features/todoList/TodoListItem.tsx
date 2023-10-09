@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
-import { TodoItem, updateItemsThunk } from "./todoListSlice";
-import { Spinner } from "../../components/Spinner";
+import { TodoItem, updateAndGetItemsThunk } from "./todoListSlice";
 import { useAppDispatch, useAppSelector } from "../../store";
 
 export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
@@ -16,23 +15,17 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
     const newItems: TodoItem[] = items.map((i) =>
       i.id === todo.id ? newItem : i
     );
-    // dispatch(updateAndGetItemsThunk(newItems));
-    // dispatch(updateAndGetItemsThunk(newItems))
-    // dispatch(updateAndGetItemsThunk(newItems));
-
-    //   .then(() => {
-    //   setIsEditing(false);
-    // });
+    dispatch(updateAndGetItemsThunk(newItems)).then(() => {
+      setIsEditing(false);
+    });
   };
 
   const deleteItem = () => {
     if (loading) return;
     const newItems = items.filter((i) => i.id !== todo.id);
-    // dispatch(updateAndGetItemsThunk(newItems))
-    // dispatch(updateItemsThunk);
-    //   .then(() => {
-    //   setIsEditing(false);
-    // });
+    dispatch(updateAndGetItemsThunk(newItems)).then(() => {
+      setIsEditing(false);
+    });
   };
   return (
     <li key={todo.id} className="">
@@ -94,6 +87,3 @@ export const TodoListItem: FC<{ todo: TodoItem }> = ({ todo }) => {
     </li>
   );
 };
-function updateAndGetItemsThunk(newItems: TodoItem[]) {
-  throw new Error("Function not implemented.");
-}

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Spinner } from "../../components/Spinner";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { todoListService } from "./todoListService";
 import { TodoItem, updateAndGetItemsThunk } from "./todoListSlice";
 
 export const NewItemForm = () => {
