@@ -8,7 +8,7 @@ import { TodoItem, TodoCategory, TodoListState } from './models';
 export const updateAndGetItemsThunk = createAsyncThunk(
   'todoItems/updateAndFetch',
   async ({ categoryId, items }: { categoryId: string, items: TodoItem[] }): Promise<TodoItem[]> => {
-    await todoListService.storeTodoItems(categoryId, items)
+    await todoListService.storeTodoItemsForCategory(categoryId, items)
     const itemsFromApi = await todoListService.getTodoItemsForCategory(categoryId)
     return itemsFromApi
   }
@@ -34,7 +34,7 @@ export const fetchTodoItemsForCategoryThunk = createAsyncThunk(
   'todoItems/fetchTodoItemsForCategory',
   async (categoryId: string): Promise<TodoCategory> => {
     const itemsFromApi = await todoListService.getTodoItemsForCategory(categoryId)
-    return { id: categoryId, name: '', items: itemsFromApi }
+    return { id: categoryId, name: '' }
   }
 );
 

@@ -1,21 +1,32 @@
-import React, { FC, useState } from 'react'
-import { TodoCategory } from './models';
+import React, { FC, useState } from "react";
+import { TodoCategory } from "./models";
+import { useCategoryQuery } from "./hooks";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { todoListService } from "./todoListService";
 
 export const NewCategory = () => {
+  const queryClient = useQueryClient();
   const [newCategoryName, setNewCategoryName] = useState("");
-  const allCategories: TodoCategory[] = []; //todo: get from api
+  const categoriesQuery = useCategoryQuery();
+
+  const addCategoryMutation = useMutation({
+    mutationFn: (allCategories: TodoCategory[]) =>
+      todoListService.setCategories(allCategories),
+    onSuccess: () => queryClient.invalidateQueries(["categories"]),
+  });
 
   const addCategory = () => {
-    const newItemList: TodoCategory[] = [
-      ...allCategories,
+    if (!categoriesQuery.data) return;
+
+    const newCategoryList: TodoCategory[] = [
+      ...categoriesQuery.data,
       {
         id: new Date().valueOf().toString(),
         name: newCategoryName,
-        items: []
       },
     ];
 
-    // todo: add category in api
+    addCategoryMutation.mutate(newCategoryList)
   };
 
   return (
@@ -35,7 +46,12 @@ export const NewCategory = () => {
         className="form-control"
         id="newCategoryNameText"
       />
-      <button className="btn btn-outline-primary mt-3">Add</button>
+      <button
+        className="btn btn-outline-primary mt-3"
+        disabled={!categoriesQuery.data}
+      >
+        Add
+      </button>
     </form>
   );
 };

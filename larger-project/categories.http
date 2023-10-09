@@ -1,0 +1,34 @@
+
+###
+
+POST https://reactdemo.duckdns.org:3011/api/store?key=categories
+Content-Type: application/json
+
+[
+  {
+    "id": "first",
+    "name": "School Work"
+  }
+]
+
+###
+
+GET https://reactdemo.duckdns.org:3011/api/store?key=categories
+
+###
+
+POST https://reactdemo.duckdns.org:3011/api/store?key=categories-first
+Content-Type: application/json
+
+[
+  {
+    "id": "esfaef",
+    "name": "Do Homework",
+    "complete": false
+  }
+]
+###
+
+GET https://reactdemo.duckdns.org:3011/api/store?key=categories-first
+
+

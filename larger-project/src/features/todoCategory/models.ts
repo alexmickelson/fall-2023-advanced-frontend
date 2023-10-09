@@ -7,7 +7,7 @@ export interface TodoItem {
 export interface TodoCategory {
   id: string,
   name: string,
-  items: TodoItem[],
+  // items: TodoItem[],
 }
 
 export interface TodoListState {

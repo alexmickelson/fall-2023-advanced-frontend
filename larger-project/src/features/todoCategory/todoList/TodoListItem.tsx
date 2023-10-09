@@ -14,15 +14,15 @@ export const TodoListItem: FC<{ todo: TodoItem; category: TodoCategory }> = ({
   const editItem = () => {
     if (loading) return;
     const newItem = { ...todo, text: editItemText };
-    const newItems: TodoItem[] = category.items.map((i) =>
-      i.id === todo.id ? newItem : i
-    );
+    // const newItems: TodoItem[] = category.items.map((i) =>
+    //   i.id === todo.id ? newItem : i
+    // );
   };
 
   // todo call api
   const deleteItem = () => {
     if (loading) return;
-    const newItems = category.items.filter((i) => i.id !== todo.id);
+    // const newItems = category.items.filter((i) => i.id !== todo.id);
   };
 
   return (

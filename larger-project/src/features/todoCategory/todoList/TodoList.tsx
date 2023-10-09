@@ -7,16 +7,18 @@ import { NewItemForm } from "./NewItemForm";
 import { TodoCategory } from "../models";
 
 export const TodoList: FC<{ categoryId: string }> = ({ categoryId }) => {
+
+  //todo: retrieve category
   const category: TodoCategory = {
     id: "seta",
     name: "School",
-    items: [
-      {
-        id: "sdfse",
-        text: "Do Homework",
-        complete: false,
-      },
-    ],
+    // items: [
+    //   {
+    //     id: "sdfse",
+    //     text: "Do Homework",
+    //     complete: false,
+    //   },
+    // ],
   };
   return (
     <div>
@@ -38,9 +40,9 @@ export const TodoList: FC<{ categoryId: string }> = ({ categoryId }) => {
       </button>
       {/* {loading && <Spinner />} */}
       <ul>
-        {category.items.map((i) => (
+        {/* {category.items.map((i) => (
           <TodoListItem key={i.id} todo={i} category={category} />
-        ))}
+        ))} */}
       </ul>
     </div>
   );

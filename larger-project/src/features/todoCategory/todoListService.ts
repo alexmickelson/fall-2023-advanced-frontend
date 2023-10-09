@@ -19,9 +19,6 @@ export const todoListService = {
     })
   },
 
-  storeTodoItems: async (categoryId: string, items: TodoItem[]) => {
-    await axios.post(url + `todoItems/${categoryId}`, items)
-  },
   setCategories: async (categories: TodoCategory[]) => {
     await axios.post(url + "categories", categories)
   },
@@ -29,8 +26,11 @@ export const todoListService = {
     const repsonse = await axios.get(url + "categories")
     return repsonse.data
   },
+  storeTodoItemsForCategory: async (categoryId: string, items: TodoItem[]) => {
+    await axios.post(url + `categories-${categoryId}`, items)
+  },
   getTodoItemsForCategory: async (categoryId: string): Promise<TodoItem[]> => {
-    const response = await axios.get(url + `todoItems/${categoryId}`)
+    const response = await axios.get(url + `categories-${categoryId}`)
     return response.data
   }
 }
