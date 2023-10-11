@@ -1,19 +1,15 @@
 import React, { FC, useState } from "react";
 import { TodoCategory } from "./models";
-import { useCategoryQuery } from "./hooks";
+import { useAddCategoryMutation, useCategoriesQuery } from "./hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { todoListService } from "./todoListService";
 
 export const NewCategory = () => {
   const queryClient = useQueryClient();
   const [newCategoryName, setNewCategoryName] = useState("");
-  const categoriesQuery = useCategoryQuery();
+  const categoriesQuery = useCategoriesQuery();
 
-  const addCategoryMutation = useMutation({
-    mutationFn: (allCategories: TodoCategory[]) =>
-      todoListService.setCategories(allCategories),
-    onSuccess: () => queryClient.invalidateQueries(["categories"]),
-  });
+  const addCategoryMutation = useAddCategoryMutation()
 
   const addCategory = () => {
     if (!categoriesQuery.data) return;
@@ -26,7 +22,7 @@ export const NewCategory = () => {
       },
     ];
 
-    addCategoryMutation.mutate(newCategoryList)
+    addCategoryMutation.mutate(newCategoryList);
   };
 
   return (

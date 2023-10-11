@@ -5,10 +5,10 @@ import { NewCategory } from "./NewCategory";
 import { useQuery } from "@tanstack/react-query";
 import { todoListService } from "./todoListService";
 import { Spinner } from "../../components/Spinner";
-import { useCategoryQuery } from "./hooks";
+import { useCategoriesQuery } from "./hooks";
 
 export const TodoCategories = () => {
-  const categoriesQuery = useCategoryQuery()
+  const categoriesQuery = useCategoriesQuery();
 
   return (
     <div className="container">
