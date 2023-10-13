@@ -7,6 +7,7 @@ import { BookContextProvider } from "./context/bookContext";
 import { Provider } from "react-redux";
 import store from "./store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <BookContextProvider>
+          <Toaster />
           <App />
         </BookContextProvider>
       </Provider>

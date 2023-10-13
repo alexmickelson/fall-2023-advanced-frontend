@@ -1,11 +1,13 @@
 version: "3"
 services:
   client:
+    restart: unless-stopped
     build: .
 
   api:
     build: ../storage-api
     container_name: alex-api
+    restart: unless-stopped
     volumes:
       - /home/alexm/data/apiStorage:/app/storage
 

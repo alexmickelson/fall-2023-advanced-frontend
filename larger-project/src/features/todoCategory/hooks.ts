@@ -17,13 +17,11 @@ export const useCategoryQuery = (categoryId: string) => {
     queryFn: async () => {
       const categoryFromQuery = categoriesQuery.data?.find((c) => c.id === categoryId);
       return categoryFromQuery;
-    }
+    },
+    enabled: !!categoriesQuery.data
   })
 
-  if (!categoriesQuery.data)
-    return categoriesQuery
-  else
-    return childQuery
+  return childQuery;
 }
 
 export const useAddCategoryMutation = () => {

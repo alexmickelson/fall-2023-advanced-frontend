@@ -6,9 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { todoListService } from "./todoListService";
 import { Spinner } from "../../components/Spinner";
 import { useCategoriesQuery } from "./hooks";
+import toast from "react-hot-toast";
 
 export const TodoCategories = () => {
   const categoriesQuery = useCategoriesQuery();
+
+  toast("this is my toast")
 
   return (
     <div className="container">
