@@ -1,23 +1,11 @@
 import React, { FC } from "react";
 import { Book } from "../../../models/books";
-import { useAppSelector, useAppDispatch } from "../../../store";
-import { addComment, deleteComment } from "./commentSlice";
 
-export const CommentsList: FC<{ book: Book }> = ({ book }) => {
-  const comments = useAppSelector((state) => state.comments.comments);
-  const dispatch = useAppDispatch();
-
-  const handleAddComment = (bookID: string, comment: string) => {
-    dispatch(addComment({ bookID, comment }));
-  };
-
-  const handleDeleteComment = (commentIndex: number) => {
-    dispatch(deleteComment(commentIndex));
-  };
+export const CommentsList: FC<{ book: Book }> = () => {
 
   return (
     <div>
-      <button
+      {/* <button
         className="btn btn-outline-primary"
         onClick={() => handleAddComment(book.id, "Great Book!")}
       >
@@ -36,7 +24,7 @@ export const CommentsList: FC<{ book: Book }> = ({ book }) => {
               Delete Comment
             </button>
           </div>
-        ))}
+        ))} */}
     </div>
   );
 };
