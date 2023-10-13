@@ -1,11 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { TodoCategory } from "./models";
 import { useAddCategoryMutation, useCategoriesQuery } from "./hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { todoListService } from "./todoListService";
 
 export const NewCategory = () => {
-  const queryClient = useQueryClient();
   const [newCategoryName, setNewCategoryName] = useState("");
   const categoriesQuery = useCategoriesQuery();
 

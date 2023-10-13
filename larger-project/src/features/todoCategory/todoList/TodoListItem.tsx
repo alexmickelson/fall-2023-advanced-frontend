@@ -1,10 +1,9 @@
 import React, { FC, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store";
+import {  useAppSelector } from "../../../store";
 import { TodoCategory, TodoItem } from "../models";
 
 export const TodoListItem: FC<{ todo: TodoItem; category: TodoCategory }> = ({
   todo,
-  category,
 }) => {
   const loading = useAppSelector((s) => s.todo.loading);
   const [isEditing, setIsEditing] = useState(false);
@@ -13,7 +12,7 @@ export const TodoListItem: FC<{ todo: TodoItem; category: TodoCategory }> = ({
   // todo: call api
   const editItem = () => {
     if (loading) return;
-    const newItem = { ...todo, text: editItemText };
+    // const newItem = { ...todo, text: editItemText };
     // const newItems: TodoItem[] = category.items.map((i) =>
     //   i.id === todo.id ? newItem : i
     // );

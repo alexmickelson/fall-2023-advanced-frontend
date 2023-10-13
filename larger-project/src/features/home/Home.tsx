@@ -1,17 +1,16 @@
 import React, {
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
 import { Link } from "react-router-dom";
-import { BookContext, BookContextType } from "../../context/bookContext";
+import { BookContext } from "../../context/bookContext";
 import { FilterInput, useFilterInput } from "./FilterInput";
 
 export const Home = () => {
   const [counter, setCounter] = useState(1);
-  const { books, setBooks } = useContext(BookContext);
+  const { books } = useContext(BookContext);
   const filterControl = useFilterInput();
 
   const incrementCounter = useCallback(() => {

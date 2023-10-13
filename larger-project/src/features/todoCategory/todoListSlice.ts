@@ -2,9 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { todoListService } from './todoListService';
 import { TodoItem, TodoCategory, TodoListState } from './models';
 
-
-
-
 export const updateAndGetItemsThunk = createAsyncThunk(
   'todoItems/updateAndFetch',
   async ({ categoryId, items }: { categoryId: string, items: TodoItem[] }): Promise<TodoItem[]> => {
@@ -33,7 +30,7 @@ export const fetchAllCategoriesThunk = createAsyncThunk(
 export const fetchTodoItemsForCategoryThunk = createAsyncThunk(
   'todoItems/fetchTodoItemsForCategory',
   async (categoryId: string): Promise<TodoCategory> => {
-    const itemsFromApi = await todoListService.getTodoItemsForCategory(categoryId)
+    await todoListService.getTodoItemsForCategory(categoryId)
     return { id: categoryId, name: '' }
   }
 );
@@ -52,10 +49,10 @@ export const todoListSlice = createSlice({
     builder.addCase(updateAndGetItemsThunk.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(updateAndGetItemsThunk.fulfilled, (state, action) => {
+    builder.addCase(updateAndGetItemsThunk.fulfilled, (state, _action) => {
       state.loading = false
     })
-    builder.addCase(updateAndGetItemsThunk.rejected, (state, action) => {
+    builder.addCase(updateAndGetItemsThunk.rejected, (state, _action) => {
       state.loading = false
       // state.error = action.error.message
     })
@@ -63,11 +60,11 @@ export const todoListSlice = createSlice({
     builder.addCase(updateItemsThunk.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(updateItemsThunk.fulfilled, (state, action) => {
+    builder.addCase(updateItemsThunk.fulfilled, (state, _action) => {
       state.loading = false
 
     })
-    builder.addCase(updateItemsThunk.rejected, (state, action) => {
+    builder.addCase(updateItemsThunk.rejected, (state, _action) => {
       state.loading = false
       // state.error = action.error.message
     })

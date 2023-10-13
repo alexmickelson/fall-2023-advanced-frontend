@@ -1,7 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { NewItemForm } from "./NewItemForm";
 import { useCategoryQuery } from "../hooks";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const TodoList: FC<{ categoryId: string }> = ({ categoryId }) => {
 

@@ -2,7 +2,6 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Home } from "./features/home/Home";
 import { BookDetailPage } from "./features/bookDetail/BookDetailPage";
-import { TodoList } from "./features/todoCategory/todoList/TodoList";
 import { TodoCategories } from "./features/todoCategory/TodoCategories";
 
 export const App = () => {

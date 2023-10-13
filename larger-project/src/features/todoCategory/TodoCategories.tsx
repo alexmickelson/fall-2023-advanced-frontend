@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { TodoList } from "./todoList/TodoList";
-import { TodoCategory } from "./models";
 import { NewCategory } from "./NewCategory";
-import { useQuery } from "@tanstack/react-query";
-import { todoListService } from "./todoListService";
 import { Spinner } from "../../components/Spinner";
 import { useCategoriesQuery } from "./hooks";
-import toast from "react-hot-toast";
 
 export const TodoCategories = () => {
   const categoriesQuery = useCategoriesQuery();

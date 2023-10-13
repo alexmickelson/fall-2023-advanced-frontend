@@ -1,21 +1,18 @@
 import React, { FC, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { updateAndGetItemsThunk } from "../todoListSlice";
-import { TodoItem } from "../models";
 
-export const NewItemForm: FC<{ categoryId: string }> = ({ categoryId }) => {
+export const NewItemForm: FC<{ categoryId: string }> = () => {
   const [newItemText, setNewItemText] = useState("");
-  const items: TodoItem[] = [];
+  // const items: TodoItem[] = [];
 
   const addItem = () => {
-    const newItemList: TodoItem[] = [
-      ...items,
-      {
-        id: new Date().valueOf().toString(),
-        text: newItemText,
-        complete: false,
-      },
-    ];
+    // const newItemList: TodoItem[] = [
+    //   ...items,
+    //   {
+    //     id: new Date().valueOf().toString(),
+    //     text: newItemText,
+    //     complete: false,
+    //   },
+    // ];
 
     // call add item mutation
   };
