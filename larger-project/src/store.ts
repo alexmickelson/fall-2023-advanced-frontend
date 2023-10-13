@@ -1,11 +1,9 @@
 import { AnyAction, Dispatch, ThunkDispatch, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { commentSlice } from "./features/bookDetail/comments/commentSlice";
 import { todoListSlice } from "./features/todoCategory/todoListSlice";
 
 const store = configureStore({
   reducer: {
-    comments: commentSlice.reducer,
     todo: todoListSlice.reducer
   },
 });
