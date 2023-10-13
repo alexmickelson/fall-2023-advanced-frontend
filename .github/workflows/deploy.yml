@@ -12,6 +12,10 @@ jobs:
       - name: redeploy application
         run: |
           cd larger-project
+
+          docker build -t alex_eslint -f eslint.Dockerfile .
+          docker run -it --rm alex_eslint
+
           docker compose pull
           docker compose build
           docker compose down

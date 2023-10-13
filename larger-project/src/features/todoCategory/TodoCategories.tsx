@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TodoList } from "./todoList/TodoList";
 import { TodoCategory } from "./models";
 import { NewCategory } from "./NewCategory";
@@ -11,7 +11,9 @@ import toast from "react-hot-toast";
 export const TodoCategories = () => {
   const categoriesQuery = useCategoriesQuery();
 
-  toast("this is my toast")
+
+  const [_first, _setFirst] = useState(false)
+  
 
   return (
     <div className="container">
