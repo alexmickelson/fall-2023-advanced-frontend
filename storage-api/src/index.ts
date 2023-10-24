@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 
@@ -5,6 +6,7 @@ const app = express();
 const port = 3000;
 const dataFile = 'storage/data.json';
 
+app.use(cors());
 const sleepMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   setTimeout(() => {
     next();
