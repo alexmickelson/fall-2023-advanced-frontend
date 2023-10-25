@@ -8,20 +8,20 @@ const PORT = 3000;
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server, path: "/ws/chat" });
+const webSocketServer = new WebSocketServer({ server, path: "/ws/chat" });
 
 app.use(cors());
 
-wss.on('connection', (ws) => {
+webSocketServer.on('connection', (webSocket) => {
   console.log('Client connected');
 
-  ws.on('message', (data) => {
-    wss.clients.forEach((client) => {
+  webSocket.on('message', (data) => {
+    webSocketServer.clients.forEach((client) => {
       client.send(data);
     });
   });
 
-  ws.on('close', () => {
+  webSocket.on('close', () => {
     console.log('Client disconnected');
   });
 });
