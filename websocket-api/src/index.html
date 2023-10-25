@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Relay Chat</title>
+  </head>
+
+  <body>
+    <h2>WebSocket Relay Chat</h2>
+
+    <div
+      id="chatBox"
+      style="
+        width: 300px;
+        height: 400px;
+        border: 1px solid black;
+        padding: 10px;
+        overflow: auto;
+      "
+    ></div>
+    <form id="messageForm">
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Type a message..."
+        style="width: 300px"
+      />
+      <button>Send</button>
+    </form>
+
+    <script>
+      const chatBox = document.getElementById("chatBox");
+      const messageInput = document.getElementById("messageInput");
+
+      const ws = new WebSocket("ws://localhost:3000/ws/chat");
+
+      ws.onopen = () => {
+        appendMessage("Connected to the relay server.");
+      };
+
+      ws.addEventListener("message", (event) => {
+        appendMessage("Received: " + event);
+      });
+
+      ws.onclose = () => {
+        appendMessage("Disconnected from the server.");
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket Error: " + error);
+      };
+
+      document.getElementById("messageForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const message = messageInput.value;
+        messageInput.value = "";
+
+        if (message) {
+          appendMessage("You: " + message);
+          ws.send(message);
+        }
+      });
+
+      function appendMessage(message) {
+        const msgElement = document.createElement("div");
+        msgElement.textContent = message;
+        chatBox.appendChild(msgElement);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    </script>
+  </body>
+</html>
