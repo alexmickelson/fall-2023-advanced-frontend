@@ -1,0 +1,57 @@
+GET http://localhost:8080/realms/demo/.well-known/openid-configuration
+
+###
+# create challenge: echo -n "randomsecretstringrandomsecretstringrandomsecretstringrandomsecretstring" | sha256sum -b | xxd -p -r | base64 | tr '/+' '_-' | tr -d '='
+# code_challenge: gR16hjqNRs3ofOuVtlHGwabDPymJQYT8sJ1UxnW09qk
+# i think code_verifier has lenght requirements
+
+# Simulate sending user's browser to this endpoint
+# @name first
+
+
+
+GET http://localhost:8080/realms/demo/protocol/openid-connect/auth
+    ?client_id=my-client
+    &redirect_uri=http://doestntExist/callback
+    &response_type=code
+    &response_mode=fragment
+    &state=random-response-string
+    &code_challenge=gR16hjqNRs3ofOuVtlHGwabDPymJQYT8sJ1UxnW09qk
+    &code_challenge_method=S256
+    &scope=openid+profile
+
+### still pretenting to be the users browswer submitting form
+### get url from action of previous form
+### & is going to be html escaped
+# @name manualLogin
+POST http://localhost:8080/realms/demo/login-actions/authenticate
+    ?session_code=cji2IJ2orJoOrSJ3Cupu9xDcDBVkp_W8W5G8gIVi1Qs
+    &execution=7e86d80e-c6d0-45a4-b5e8-cf042abd2c86
+    &client_id=my-client
+    &tab_id=Z694JoAXMXE
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{first.response.headers.Set-Cookie}}
+
+username=user
+&password=password
+
+
+### get data out of manualLogin Location header (redirecting back to the application in browser)
+### session state parameter 
+# @name getToken
+post http://localhost:8080/realms/demo/protocol/openid-connect/token
+# Cookie: {{first.response.headers.Set-Cookie}}
+Content-Type: application/x-www-form-urlencoded
+
+client_id=my-client
+&code=70928d24-d2d9-4872-bcd4-71058ccd7ab9.0f12389c-3120-4db3-b865-739a0207a078.85ff18d0-9e16-4f54-8abd-989b96099c4d
+&code_verifier=randomsecretstringrandomsecretstringrandomsecretstringrandomsecretstring
+&redirect_uri=http://doestntExist/callback
+&grant_type=authorization_code
+
+### 
+
+# @name useToken
+
+GET http://localhost:8080/realms/demo/protocol/openid-connect/userinfo
+Authorization: Bearer {{getToken.response.body.access_token}}
