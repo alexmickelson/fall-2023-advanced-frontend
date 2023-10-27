@@ -16,8 +16,9 @@ webSocketServer.on('connection', (webSocket) => {
   console.log('Client connected');
 
   webSocket.on('message', (data) => {
+    console.log("message", data.toString())
     webSocketServer.clients.forEach((client) => {
-      client.send(data);
+      client.send(data.toString());
     });
   });
 

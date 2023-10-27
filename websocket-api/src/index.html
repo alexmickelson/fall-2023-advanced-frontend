@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebSocket Relay Chat</title>
   </head>
-
   <body>
     <h2>WebSocket Relay Chat</h2>
-
     <div
       id="chatBox"
       style="
@@ -40,7 +38,10 @@
       };
 
       ws.addEventListener("message", (event) => {
-        appendMessage("Received: " + event);
+        console.log("recieved", event)
+        const parsedObject = JSON.parse(event.data)
+
+        appendMessage("Received: " + parsedObject.text);
       });
 
       ws.onclose = () => {
@@ -58,7 +59,7 @@
 
         if (message) {
           appendMessage("You: " + message);
-          ws.send(message);
+          ws.send(JSON.stringify({text: message}));
         }
       });
 
