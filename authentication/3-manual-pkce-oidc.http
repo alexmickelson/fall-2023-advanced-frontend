@@ -8,8 +8,6 @@ GET http://localhost:8080/realms/demo/.well-known/openid-configuration
 # Simulate sending user's browser to this endpoint
 # @name first
 
-
-
 GET http://localhost:8080/realms/demo/protocol/openid-connect/auth
     ?client_id=my-client
     &redirect_uri=http://doestntExist/callback
@@ -25,10 +23,10 @@ GET http://localhost:8080/realms/demo/protocol/openid-connect/auth
 ### & is going to be html escaped
 # @name manualLogin
 POST http://localhost:8080/realms/demo/login-actions/authenticate
-    ?session_code=cji2IJ2orJoOrSJ3Cupu9xDcDBVkp_W8W5G8gIVi1Qs
+    ?session_code=HYKUrEXYvaHGFGrrzlcEIjxy-YjrwAQasYs0Q5sH--Q
     &execution=7e86d80e-c6d0-45a4-b5e8-cf042abd2c86
     &client_id=my-client
-    &tab_id=Z694JoAXMXE
+    &tab_id=sf89CjGkkOk
 Content-Type: application/x-www-form-urlencoded
 Cookie: {{first.response.headers.Set-Cookie}}
 
@@ -36,20 +34,23 @@ username=user
 &password=password
 
 
+# state=random-response-string
+# &session_state=4c25d8d0-7659-47c3-90d6-4b5198c3857c
+# &code=bc414068-1f87-4274-8940-51b5f86ec05e.4c25d8d0-7659-47c3-90d6-4b5198c3857c.e655ac6a-4f3a-40cb-975a-d4886654f1ec
+
 ### get data out of manualLogin Location header (redirecting back to the application in browser)
 ### session state parameter 
 # @name getToken
 post http://localhost:8080/realms/demo/protocol/openid-connect/token
-# Cookie: {{first.response.headers.Set-Cookie}}
 Content-Type: application/x-www-form-urlencoded
 
 client_id=my-client
-&code=70928d24-d2d9-4872-bcd4-71058ccd7ab9.0f12389c-3120-4db3-b865-739a0207a078.85ff18d0-9e16-4f54-8abd-989b96099c4d
+&code=4f61d9d7-f655-4a3b-bd36-2a2b62da15d7.60aad427-6351-4968-b15b-29fae3b9b8a9.e655ac6a-4f3a-40cb-975a-d4886654f1ec
 &code_verifier=randomsecretstringrandomsecretstringrandomsecretstringrandomsecretstring
 &redirect_uri=http://doestntExist/callback
 &grant_type=authorization_code
 
-### 
+###
 
 # @name useToken
 
